@@ -15,18 +15,15 @@
   * Commit your changes using VS Code's Source Control panel
   * 4. Push your changes to GitHub
 
+*/
 
-The Uncommented Code:
+
 
 // ============================================
-// YOUR NAME AND DATE GO HERE (uncomment and edit the line below):
-// 
 // Author: Ryan Emery
 // Date: 12/7/2025
 // AI: No AI
 // ============================================
-*/
-
 
 #include <Zumo32U4.h>
  
@@ -37,6 +34,9 @@ Zumo32U4OLED display;
  
 int mode = 0;
  
+/*
+* Updates the mode on the display
+*/
 void showMode() {
     display.clear();
     display.setLayout21x8();
@@ -57,14 +57,23 @@ void showMode() {
     display.print(F("A:- B:+ C:Reset"));
 }
  
+/*
+* Setup function
+* Set baud rate
+* call showMode function
+*/
 void setup() {
     Serial.begin(115200);
     Serial.println(F("Mode Selector"));
     showMode();
 }
- 
+
+
+/*
+* Loop function, runs constantly
+*/
 void loop() {
-    if (buttonA.getSingleDebouncedPress()) {
+    if (buttonA.getSingleDebouncedPress()) { // Decreases mode by 1 when button A pressed
         if (mode > 0) {
             mode--;
         }
@@ -73,7 +82,7 @@ void loop() {
         Serial.print(F("Mode: ")); Serial.println(mode);
     }
     
-    if (buttonB.getSingleDebouncedPress()) {
+    if (buttonB.getSingleDebouncedPress()) { // Increases mode by 1 when button B pressed
         if (mode < 2) {
             mode++;
         }
@@ -82,7 +91,7 @@ void loop() {
         Serial.print(F("Mode: ")); Serial.println(mode);
     }
     
-    if (buttonC.getSingleDebouncedPress()) {
+    if (buttonC.getSingleDebouncedPress()) { // Resets mode to zero when button C pressed
         mode = 0;
         ledYellow(1); delay(50); ledYellow(0);
         showMode();
